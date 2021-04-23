@@ -3,6 +3,7 @@
 ## Usage
 
 ### Apply script
+At the bottom of the `build.gradle` file in each module
 ```groovy
 apply from: "https://raw.githubusercontent.com/PaystackHQ/publish-mavencentral/main/maven-publish.gradle"
 ```
