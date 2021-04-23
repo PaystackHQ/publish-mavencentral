@@ -2,6 +2,11 @@
 
 ## Usage
 
+### Apply script
+```groovy
+apply from: "https://raw.githubusercontent.com/PaystackHQ/publish-mavencentral/main/maven-publish.gradle"
+```
+
 ### Define library details
 In project-level `gradle.properties` file
 ```properties
