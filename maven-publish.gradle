@@ -44,6 +44,9 @@ afterEvaluate {
                 artifactId = POM_ARTIFACT_ID
                 version = VERSION_NAME
 
+                artifact ("$buildDir/outputs/aar/$POM_ARTIFACT_ID-release.aar") {
+                    builtBy assembleRelease
+                }
                 artifact androidSourcesJar
 
                 pom {
@@ -98,5 +101,3 @@ afterEvaluate {
         }
     }
 }
-
-
