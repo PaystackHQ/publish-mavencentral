@@ -44,7 +44,7 @@ afterEvaluate {
                 artifactId = POM_ARTIFACT_ID
                 version = VERSION_NAME
 
-                artifact("$buildDir/outputs/aar/$POM_ARTIFACT_ID-release.aar") {
+                artifact ("$buildDir/outputs/aar/$POM_ARTIFACT_ID-release.aar") {
                     builtBy assembleRelease
                 }
                 artifact androidSourcesJar
@@ -75,19 +75,13 @@ afterEvaluate {
                     }
 
                     withXml {
-                        final dependenciesNode = asNode().appendNode('dependencies')
-                        ext.addDependency = { Dependency dep, String scope ->
-                            if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified") {
-                                return // invalid dependencies should be ignored
-                            }
+                        def dependenciesNode = asNode().appendNode('dependencies')
 
-                            final dependencyNode = dependenciesNode.appendNode('dependency')
-                            dependencyNode.appendNode('artifactId', dep.name)
-                            if (dep.version == 'unspecified') {
-                                dependencyNode.appendNode('groupId', project.ext.pomGroupID)
-                                dependencyNode.appendNode('version', project.ext.pomVersion)
-                            } else {
+                        project.configurations.implementation.allDependencies.each { dep ->
+                            if (dep.group != null && dep.version != null && dep.name != null && dep.name != "unspecified") {
+                                def dependencyNode = dependenciesNode.appendNode('dependency')
                                 dependencyNode.appendNode('groupId', dep.group)
+                                dependencyNode.appendNode('artifactId', dep.name)
                                 dependencyNode.appendNode('version', dep.version)
                             }
                         }
